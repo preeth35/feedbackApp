@@ -1,3 +1,5 @@
 node_modules/
 package-lock.json
 fcms-backend/.serverless/
+dev-env.yml
+local-env.yml
