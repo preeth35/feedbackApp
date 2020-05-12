@@ -1,7 +1,7 @@
 const connectToDatabase = require(process.env.root_dir+'/shared/db');
 const responseHandler = require(process.env.root_dir+'/shared/responsehandler');
 const Feedback = require(process.env.root_dir+'/models/feedback');
-const E = require('shared/helpers/errorMessages');
+const E = require(process.env.root_dir+'/shared/helpers/errorMessages');
 
 module.exports.main = async event => {
   connectToDatabase(process.env.DB, context)
@@ -15,7 +15,8 @@ module.exports.main = async event => {
           responseHandler.success(callback,data,origin);
        });
 
-    }.catch(err => {
+    }).catch(err => {
       responseHandler.error(err, E.connecting, callback,origin);
     });
+    
 };

@@ -5,11 +5,17 @@ app: fcms
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs10.x
   stage: ${opt:stage, 'local'}
   region: eu-west-1
   environment: ${file(../../${self:provider.stage}-env.yml):environment}
 
+
+package:
+  include:
+    - ../../node_modules/**
+    - ../../shared/**
+    - ../../models/**
 
 plugins:
   - serverless-offline
@@ -32,13 +38,6 @@ functions:
           path: getOne/{id}
           method: get
 
- #Function to get by Supervisor id
-  getBySup:
-    handler: getBySup.main
-    events:
-      - http:
-          path: getBySup/{supId}
-          method: get
 
   #Function to get all the records from the DB
   getAll:
@@ -64,10 +63,4 @@ functions:
           path: delete/{id}
           method: delete
 
-  #Function to delete by Supervisor
-  deleteBySup:
-    handler: deleteBySup.main
-    events:
-      - http:
-          path: deleteBySup/{id}
-          method: delete
+

@@ -1,21 +1,23 @@
-const AWS = require('aws-sdk');
-const uuidv1 = require('uuid/v1');
 const connectToDatabase = require(process.env.root_dir+'/shared/db');
 const responseHandler = require(process.env.root_dir+'/shared/responsehandler');
-const Feedback = require(process.env.root_dir+'/models/feedback');
+const Question = require(process.env.root_dir+'/models/question');
+const E = require(process.env.root_dir+'/shared/errorMessages');
 
 module.exports.main = (event, context, callback) => {
-  const feedback = JSON.parse(event.body);
   connectToDatabase(process.env.DB, context)
     .then(async () => {
-      Feedback.create(JSON.parse(event.body),
+      // logic
+      Question.create(JSON.parse(event.body),
         function(err, data) {
           if (err) {
-            responseHandler.error("Error creating Feedback", callback);
+            responseHandler.error(E.creating, callback);
           }
         responseHandler.success(data, callback);
       })
-
-    }).catch(err => responseHandler.error("Error connecting", callback));
+       
+    }).catch(
+      // Error
+      err => responseHandler.error(E.connecting, callback)
+      );
 
 };

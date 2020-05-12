@@ -17,7 +17,7 @@ module.exports.main = async event => {
            responseHandler.success(callback,data,origin);
          });
 
-    }.catch(err => {
+    }).catch(err => {
       responseHandler.error(err, E.connecting, callback,origin);
     });
 

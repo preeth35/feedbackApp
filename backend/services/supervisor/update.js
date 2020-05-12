@@ -1,18 +1,21 @@
-'use strict';
+const connectToDatabase = require(process.env.root_dir+'/shared/db');
+const responseHandler = require(process.env.root_dir+'/shared/responsehandler');
+const supervisor = require(process.env.root_dir+'/models/supervisor');
+const E = require('shared/helpers/errorMessages');
 
 module.exports.main = async event => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
+  connectToDatabase(process.env.DB, context)
+    .then(async () => {
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+      Supervisor.findByIdAndUpdate(event.pathParameters.id, JSON.parse(event.body), { new: true })
+         .exec(function(err, data) {
+           if (err) {
+             responseHandler.error(err, E.updating, callback, origin);
+           }
+           responseHandler.success(callback,data, origin);
+          });
+      }).catch(err => {
+        responseHandler.error(err, E.connecting, callback,origin);
+      });
+
 };

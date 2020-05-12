@@ -5,11 +5,15 @@
       "name": "fcms-backend"
     },
     "provider": {
-      "stage": "local",
+      "stage": "dev",
       "variableSyntax": "\\${([ ~:a-zA-Z0-9._@'\",\\-\\/\\(\\)*?]+?)}",
       "name": "aws",
       "runtime": "nodejs12.x",
       "region": "eu-west-1",
+      "environment": {
+        "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+        "root_dir": "."
+      },
       "versionFunctions": true,
       "remoteFunctionData": null,
       "compiledCloudFormationTemplate": {
@@ -73,43 +77,43 @@
           "CreateLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-create"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-create"
             }
           },
           "GetOneLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-getOne"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-getOne"
             }
           },
           "GetBySupLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-getBySup"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-getBySup"
             }
           },
           "GetAllLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-getAll"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-getAll"
             }
           },
           "UpdateLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-update"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-update"
             }
           },
           "DeleteLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-delete"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-delete"
             }
           },
           "DeleteBySupLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/fcms-backend-local-deleteBySup"
+              "LogGroupName": "/aws/lambda/fcms-backend-dev-deleteBySup"
             }
           },
           "IamRoleLambdaExecution": {
@@ -137,7 +141,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "local",
+                        "dev",
                         "fcms-backend",
                         "lambda"
                       ]
@@ -154,7 +158,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/fcms-backend-local*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/fcms-backend-dev*:*"
                           }
                         ]
                       },
@@ -165,7 +169,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/fcms-backend-local*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/fcms-backend-dev*:*:*"
                           }
                         ]
                       }
@@ -179,7 +183,7 @@
                   "-",
                   [
                     "fcms-backend",
-                    "local",
+                    "dev",
                     {
                       "Ref": "AWS::Region"
                     },
@@ -196,9 +200,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-create",
+              "FunctionName": "fcms-backend-dev-create",
               "Handler": "create.main",
               "MemorySize": 1024,
               "Role": {
@@ -208,21 +212,27 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "CreateLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "CreateLambdaVersionyO5X8FEsn5hVyw5vO6Bvc8cWcbFCqnsbjmixCSBTso": {
+          "CreateLambdaVersionThCJT4DWr3u8HtXrAFnVBfeYyeYP4m5NraO8R0pKU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "CreateLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "GetOneLambdaFunction": {
@@ -232,9 +242,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-getOne",
+              "FunctionName": "fcms-backend-dev-getOne",
               "Handler": "getOne.main",
               "MemorySize": 1024,
               "Role": {
@@ -244,21 +254,27 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "GetOneLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "GetOneLambdaVersionyT4ULIyinAZAzaMSXsKghIBTD0UhlRJVK0Nc7uQY": {
+          "GetOneLambdaVersion6SKu2J2rx1i94mtKtzd7TOydZT0Mn7HiHFwh9Ivfa4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetOneLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "GetBySupLambdaFunction": {
@@ -268,9 +284,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-getBySup",
+              "FunctionName": "fcms-backend-dev-getBySup",
               "Handler": "getBySup.main",
               "MemorySize": 1024,
               "Role": {
@@ -280,21 +296,27 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "GetBySupLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "GetBySupLambdaVersion3lZyL76t0SnP5rwmpUyaF0FJoXM7wsMDl7B8ISo61I": {
+          "GetBySupLambdaVersionAkT43dUY2H11Co7s0KjXOL6qXS14tvbVbOX6XGmKVY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetBySupLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "GetAllLambdaFunction": {
@@ -304,9 +326,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-getAll",
+              "FunctionName": "fcms-backend-dev-getAll",
               "Handler": "getAll.main",
               "MemorySize": 1024,
               "Role": {
@@ -316,21 +338,27 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "GetAllLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "GetAllLambdaVersionuWs7dAGU79ECNBhKwM482Klrd05PTALWmY6SF1xu2fg": {
+          "GetAllLambdaVersionkkdGXLkTzHlijXboURSVDeVpMOLqJi3N77Dypo5Q": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAllLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "UpdateLambdaFunction": {
@@ -340,9 +368,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-update",
+              "FunctionName": "fcms-backend-dev-update",
               "Handler": "update.main",
               "MemorySize": 1024,
               "Role": {
@@ -352,21 +380,27 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "UpdateLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "UpdateLambdaVersionBAuEsjGmgNP7J7n0i04DeTsutXPYl9WneXGrV3Z10k": {
+          "UpdateLambdaVersionOMCM4wvT0kn0nBoVO4E2UfmD8ZH0wDyiTMN1rCMkofI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "DeleteLambdaFunction": {
@@ -376,9 +410,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-delete",
+              "FunctionName": "fcms-backend-dev-delete",
               "Handler": "delete.main",
               "MemorySize": 1024,
               "Role": {
@@ -388,21 +422,27 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "DeleteLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "DeleteLambdaVersionwyBHoMS2e3yipYeB9EW2nhWUDWkVSQkzoUwXbEjb3k": {
+          "DeleteLambdaVersionua6V4vrQwutZ5djMzr9RtW82UKqlJzLQirAvknK0Fhw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DeleteLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "DeleteBySupLambdaFunction": {
@@ -412,9 +452,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z/fcms-backend.zip"
+                "S3Key": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z/fcms-backend.zip"
               },
-              "FunctionName": "fcms-backend-local-deleteBySup",
+              "FunctionName": "fcms-backend-dev-deleteBySup",
               "Handler": "deleteBySup.main",
               "MemorySize": 1024,
               "Role": {
@@ -424,27 +464,33 @@
                 ]
               },
               "Runtime": "nodejs12.x",
-              "Timeout": 6
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "DB": "mongodb+srv://preethi:sharon924@cluster0-5gie0.mongodb.net/fcms?retryWrites=true&w=majority",
+                  "root_dir": "."
+                }
+              }
             },
             "DependsOn": [
               "DeleteBySupLogGroup",
               "IamRoleLambdaExecution"
             ]
           },
-          "DeleteBySupLambdaVersionZt4UWzfTJFHhODpLqpfLFDQ8Gt33vvtbBUu1LAksE": {
+          "DeleteBySupLambdaVersionErPRzto4AMc9bMRmum0cU8aL7k74nUHBCNYTCOfk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DeleteBySupLambdaFunction"
               },
-              "CodeSha256": "7l0ePlOsT5wvc+YRNAzbKAA4+Nu8f2zty5Ah4Rhz0So="
+              "CodeSha256": "JydNZO2q4nxOcoBIdYjcj9jdK5+p5JkvjTtD2CPejKY="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "local-fcms-backend",
+              "Name": "dev-fcms-backend",
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -919,13 +965,13 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1582633371530": {
+          "ApiGatewayDeployment1582991409345": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               },
-              "StageName": "local"
+              "StageName": "dev"
             },
             "DependsOn": [
               "ApiGatewayMethodCreatePost",
@@ -1206,43 +1252,43 @@
           "CreateLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "CreateLambdaVersionyO5X8FEsn5hVyw5vO6Bvc8cWcbFCqnsbjmixCSBTso"
+              "Ref": "CreateLambdaVersionThCJT4DWr3u8HtXrAFnVBfeYyeYP4m5NraO8R0pKU"
             }
           },
           "GetOneLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetOneLambdaVersionyT4ULIyinAZAzaMSXsKghIBTD0UhlRJVK0Nc7uQY"
+              "Ref": "GetOneLambdaVersion6SKu2J2rx1i94mtKtzd7TOydZT0Mn7HiHFwh9Ivfa4"
             }
           },
           "GetBySupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetBySupLambdaVersion3lZyL76t0SnP5rwmpUyaF0FJoXM7wsMDl7B8ISo61I"
+              "Ref": "GetBySupLambdaVersionAkT43dUY2H11Co7s0KjXOL6qXS14tvbVbOX6XGmKVY"
             }
           },
           "GetAllLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAllLambdaVersionuWs7dAGU79ECNBhKwM482Klrd05PTALWmY6SF1xu2fg"
+              "Ref": "GetAllLambdaVersionkkdGXLkTzHlijXboURSVDeVpMOLqJi3N77Dypo5Q"
             }
           },
           "UpdateLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateLambdaVersionBAuEsjGmgNP7J7n0i04DeTsutXPYl9WneXGrV3Z10k"
+              "Ref": "UpdateLambdaVersionOMCM4wvT0kn0nBoVO4E2UfmD8ZH0wDyiTMN1rCMkofI"
             }
           },
           "DeleteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DeleteLambdaVersionwyBHoMS2e3yipYeB9EW2nhWUDWkVSQkzoUwXbEjb3k"
+              "Ref": "DeleteLambdaVersionua6V4vrQwutZ5djMzr9RtW82UKqlJzLQirAvknK0Fhw"
             }
           },
           "DeleteBySupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DeleteBySupLambdaVersionZt4UWzfTJFHhODpLqpfLFDQ8Gt33vvtbBUu1LAksE"
+              "Ref": "DeleteBySupLambdaVersionErPRzto4AMc9bMRmum0cU8aL7k74nUHBCNYTCOfk"
             }
           },
           "ServiceEndpoint": {
@@ -1263,7 +1309,7 @@
                   {
                     "Ref": "AWS::URLSuffix"
                   },
-                  "/local"
+                  "/dev"
                 ]
               ]
             }
@@ -1355,13 +1401,13 @@
             }
           }
         ],
-        "name": "fcms-backend-local-create",
+        "name": "fcms-backend-dev-create",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "CreateLambdaVersionyO5X8FEsn5hVyw5vO6Bvc8cWcbFCqnsbjmixCSBTso"
+        "versionLogicalId": "CreateLambdaVersionThCJT4DWr3u8HtXrAFnVBfeYyeYP4m5NraO8R0pKU"
       },
       "getOne": {
         "handler": "getOne.main",
@@ -1374,13 +1420,13 @@
             }
           }
         ],
-        "name": "fcms-backend-local-getOne",
+        "name": "fcms-backend-dev-getOne",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetOneLambdaVersionyT4ULIyinAZAzaMSXsKghIBTD0UhlRJVK0Nc7uQY"
+        "versionLogicalId": "GetOneLambdaVersion6SKu2J2rx1i94mtKtzd7TOydZT0Mn7HiHFwh9Ivfa4"
       },
       "getBySup": {
         "handler": "getBySup.main",
@@ -1393,13 +1439,13 @@
             }
           }
         ],
-        "name": "fcms-backend-local-getBySup",
+        "name": "fcms-backend-dev-getBySup",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetBySupLambdaVersion3lZyL76t0SnP5rwmpUyaF0FJoXM7wsMDl7B8ISo61I"
+        "versionLogicalId": "GetBySupLambdaVersionAkT43dUY2H11Co7s0KjXOL6qXS14tvbVbOX6XGmKVY"
       },
       "getAll": {
         "handler": "getAll.main",
@@ -1412,13 +1458,13 @@
             }
           }
         ],
-        "name": "fcms-backend-local-getAll",
+        "name": "fcms-backend-dev-getAll",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetAllLambdaVersionuWs7dAGU79ECNBhKwM482Klrd05PTALWmY6SF1xu2fg"
+        "versionLogicalId": "GetAllLambdaVersionkkdGXLkTzHlijXboURSVDeVpMOLqJi3N77Dypo5Q"
       },
       "update": {
         "handler": "update.main",
@@ -1431,13 +1477,13 @@
             }
           }
         ],
-        "name": "fcms-backend-local-update",
+        "name": "fcms-backend-dev-update",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "UpdateLambdaVersionBAuEsjGmgNP7J7n0i04DeTsutXPYl9WneXGrV3Z10k"
+        "versionLogicalId": "UpdateLambdaVersionOMCM4wvT0kn0nBoVO4E2UfmD8ZH0wDyiTMN1rCMkofI"
       },
       "delete": {
         "handler": "delete.main",
@@ -1450,13 +1496,13 @@
             }
           }
         ],
-        "name": "fcms-backend-local-delete",
+        "name": "fcms-backend-dev-delete",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "DeleteLambdaVersionwyBHoMS2e3yipYeB9EW2nhWUDWkVSQkzoUwXbEjb3k"
+        "versionLogicalId": "DeleteLambdaVersionua6V4vrQwutZ5djMzr9RtW82UKqlJzLQirAvknK0Fhw"
       },
       "deleteBySup": {
         "handler": "deleteBySup.main",
@@ -1469,22 +1515,23 @@
             }
           }
         ],
-        "name": "fcms-backend-local-deleteBySup",
+        "name": "fcms-backend-dev-deleteBySup",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "DeleteBySupLambdaVersionZt4UWzfTJFHhODpLqpfLFDQ8Gt33vvtbBUu1LAksE"
+        "versionLogicalId": "DeleteBySupLambdaVersionErPRzto4AMc9bMRmum0cU8aL7k74nUHBCNYTCOfk"
       }
     },
     "serviceFilename": "serverless.yml",
     "app": "fcms",
     "layers": {},
-    "artifact": "/Users/jabezsamjohnsamuel/Desktop/feedbackApp/backend/fcms-backend/.serverless/fcms-backend.zip"
+    "isDashboardMonitoringPreconfigured": false,
+    "artifact": "/Users/patrickfranky/Desktop/feedbackApp/backend/services/fcms-backend/.serverless/fcms-backend.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/fcms-backend/local/1582633373010-2020-02-25T12:22:53.010Z",
+    "artifactDirectoryName": "serverless/fcms-backend/dev/1582991411477-2020-02-29T15:50:11.477Z",
     "artifact": "fcms-backend.zip"
   }
 }

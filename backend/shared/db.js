@@ -16,7 +16,7 @@ module.exports = connectToDatabase = (DBstring, context = null) => {
     console.log('=> using cached database connection');
     return Promise.resolve(cachedDb);
   }
-
+  
   return mongoose.connect(DBstring)
     .then(db => {
       cachedDb = db;

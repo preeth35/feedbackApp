@@ -5,15 +5,19 @@ app: fcms
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs10.x
   stage: ${opt:stage, 'local'}
   region: eu-west-1
   environment: ${file(../../${self:provider.stage}-env.yml):environment}
 
+package:
+  include:
+    - ../../node_modules/**
+    - ../../shared/**
+    - ../../models/**
 
 plugins:
   - serverless-offline
-
 
 functions:
   #Create one record in the DB

@@ -2,7 +2,15 @@ const mongoose = require("mongoose");
 
 const supervisorSchema = new mongoose.Schema({
 
-  name:{
+  firstName:{
+    type: String
+  },
+
+  surName:{
+    type: String
+  },
+
+  supId:{
     type: String
   }
 
